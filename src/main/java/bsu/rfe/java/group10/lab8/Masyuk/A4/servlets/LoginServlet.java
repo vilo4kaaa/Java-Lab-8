@@ -119,7 +119,7 @@ public class LoginServlet extends ChatServlet {
         String sessionId = request.getSession().getId();
         // Извлечь из списка объект, связанный с этим именем
         ChatUser aUser = activeUsers.get(name);
-        if (aUser==null) {
+        if (aUser==null && aUser.getKol() <= 2) {
             // Если оно свободно, то добавить
 // нового пользователя в список активных
             aUser = new ChatUser(name, Calendar.getInstance().getTimeInMillis(), sessionId);
@@ -131,6 +131,11 @@ public class LoginServlet extends ChatServlet {
 
             }
         }
+
+        if (aUser.getKol() > 2) {
+            return "User amount is limited";
+        }
+
         if (aUser.getSessionId().equals(sessionId) ||
                 aUser.getLastInteractionTime()<(Calendar.getInstance().getTimeInMillis()-
                         sessionTimeout*1000)) {
