@@ -8,12 +8,19 @@ public class ChatUser {
     private long lastInteractionTime;
     // Идентификатор Java-сессии пользователя
     private String sessionId;
+    private static int Kol = 0;
     public ChatUser(String name,long lastInteractionTime,String sessionId) {
         super();
         this.name = name;
         this.lastInteractionTime = lastInteractionTime;
         this.sessionId = sessionId;
+        ++Kol;
     }
+
+    public static int getKol() {
+        return Kol;
+    }
+
     public String getName() {
         return name;
     }
